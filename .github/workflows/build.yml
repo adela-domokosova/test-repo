@@ -8,6 +8,9 @@ jobs:
   build:
     name: Build project
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        greeting: ['CITY', 'WORLD', 'UNIVERSE']
     steps:
       - name: Checkout project
         uses: actions/checkout@v4
@@ -15,6 +18,7 @@ jobs:
           fetch-depth: 0
       - name: Test secrets
         run: |
-          echo "Behold: $TEST_SECRET"
+          echo "Behold $GREETING: $TEST_SECRET"
         env:
           TEST_SECRET: ${{ secrets.TEST_SECRET }}
+          GREETING: ${{ matrix.greeting }}
