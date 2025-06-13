@@ -16,3 +16,12 @@ jobs:
           echo "Sonar: $TEST_SECRET"
         env:
           TEST_SECRET: ${{ secrets.TEST_SECRET }}
+      - name: Download artifacts
+        uses: dawidd6/action-download-artifact@v10
+        with:
+          workflow: ${{ github.event.workflow_run.name }}
+          run_id: ${{ github.event.workflow_run.id }}
+          name: UNIVERSE
+      - name: Test artifact
+        run: |
+          ls -l UNIVERSE

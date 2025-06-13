@@ -22,3 +22,9 @@ jobs:
         env:
           TEST_SECRET: ${{ secrets.TEST_SECRET }}
           GREETING: ${{ matrix.greeting }}
+      - name: Upload README
+        if: github.event_name == 'pull_request' && matrix.greeting == 'UNIVERSE'
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.greeting }}
+          path: README.md
